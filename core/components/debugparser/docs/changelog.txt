@@ -1,8 +1,9 @@
 Changelog for debugParser.
 
-1.0.0 rc
+1.0.0 rc1
 ==============
 - Fixed total values.
+- Added support for 3rd party parsers.
 
 1.0.0 beta1
 ==============

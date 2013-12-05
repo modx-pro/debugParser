@@ -3,6 +3,21 @@
 class debugParser extends modParser {
 	public $tags = array();
 	public $from_cache = false;
+	/** @var modParser $parser */
+	protected $parser = null;
+
+	/** {inheritDoc} */
+	public function __construct(xPDO &$modx) {
+		parent::__construct($modx);
+
+		$parser = $this->modx->getOption('parser_class', null, 'modParser');
+		$parser_class_path = $this->modx->getOption('parser_class_path', null, null);
+
+		if ($parser != 'modParser' && $this->modx->loadClass($parser, $parser_class_path)) {
+			$this->parser = new $parser($modx);
+		}
+	}
+
 
 	/** {inheritDoc} */
 	public function processTag($tag, $processUncacheable = true) {
@@ -12,8 +27,10 @@ class debugParser extends modParser {
 		$query_time_start = $this->modx->queryTime;
 		$queries_start = $this->modx->executedQueries;
 
-		// Call parent method
-		$result = parent::processTag($tag, $processUncacheable);
+		// Call processTag method from real parser
+		$result = $this->parser && $this->parser instanceof modParser
+			? $this->parser->processTag($tag, $processUncacheable)
+			: parent::processTag($tag, $processUncacheable);
 
 		$parse_time = number_format(round(microtime(true) - $parse_time_start, 7), 7);
 		$query_time = number_format(round($this->modx->queryTime - $query_time_start, 7), 7);
