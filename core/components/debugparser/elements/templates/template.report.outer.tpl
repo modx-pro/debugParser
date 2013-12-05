@@ -1,9 +1,11 @@
 <style>
 	table.debug {font: normal 12px Arial;border-spacing: 0;width: 100%;}
-	table.info {font: normal 12px Arial;border-spacing: 0;margin-bottom:50px;}
+	table.info {font: normal 12px Arial;border-spacing: 0;margin: 50px 0 50px 20px;}
 
-	table.debug thead th {border-bottom: 1px solid #555;}
-	table.debug tfoot th {border-top: 1px solid #555;}
+	table.debug thead th,
+	table.debug tr:last-child td {
+		border-bottom: 1px solid #555 !important;
+	}
 
 	table.debug th {
 		margin: 0;
@@ -38,27 +40,23 @@
 			<th>#</th>
 			<th>Tag</th>
 			<th>Queries</th>
-			<th>Queries time</th>
-			<th>Parse Time</th>
+			<th>Queries time, s</th>
+			<th>Parse Time, s</th>
 		</tr>
 	</thead>
 
 	[[+rows]]
-
-	<tfoot>
-		<tr>
-			<th colspan="2" class="total">Total:</th>
-			<th>[[+total_queries]]</th>
-			<th>[[+total_queries_time]]</th>
-			<th>[[+total_parse_time]]</th>
-		</tr>
-	</tfoot>
 </table>
 
 <table class="info">
+	<tr><th>Total parse time</th><th>[[+total_parse_time]] s</th></tr>
+	<tr><th>Total queries</th><td>[[+total_queries]]</td></tr>
+	<tr><th>Total queries time</th><td>[[+total_queries_time]] s</td></tr>
+	<tr><th>Memory peak usage</th><td>[[+memory_peak]] Mb</td></tr>
+	<tr><th>&nbsp;</th><td>&nbsp;</td></tr>
 	<tr><th>MODX version</th><td>[[+modx_version]]</td></tr>
 	<tr><th>PHP version</th><td>[[+php_version]]</td></tr>
 	<tr><th>Database version</th><td>[[+database_type]] [[+database_version]]</td></tr>
-	<tr><th>Memory peak usage</th><td>[[+memory_peak]]</td></tr>
+
 	<tr><th>From cache</th><td>[[+from_cache]]</td></tr>
 </table>

@@ -1,5 +1,9 @@
 Changelog for debugParser.
 
+1.0.0 rc
+==============
+- Fixed total values.
+
 1.0.0 beta1
 ==============
 - Initial release.

@@ -58,9 +58,9 @@ class debugParser extends modParser {
 		// Generate report
 		$data = array(
 			'rows' => '',
-			'total_queries' => 0,
-			'total_queries_time' => 0,
-			'total_parse_time' => 0,
+			'total_queries' => $this->modx->executedQueries,
+			'total_queries_time' => number_format(round($this->modx->queryTime, 7), 7),
+			'total_parse_time' => number_format(round(microtime(true) - $this->modx->startTime, 7), 7),
 		);
 
 		$idx = 1;
@@ -89,7 +89,7 @@ class debugParser extends modParser {
 			$data = array_merge($data, $response->response['object']);
 		}
 
-		$data['memory_peak'] = memory_get_peak_usage(true) / 1048576 . ' Mb';
+		$data['memory_peak'] = memory_get_peak_usage(true) / 1048576;
 		$data['php_version'] = PHP_VERSION;
 		$data['from_cache'] = $this->from_cache ? 'true' : 'false';
 
