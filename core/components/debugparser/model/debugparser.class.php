@@ -44,7 +44,7 @@ class debugParser extends modParser {
 		}
 		else {
 			$this->tags[$hash] = array(
-				'tag' => htmlentities($tag[0]),
+				'tag' => htmlentities(trim($tag[0]), ENT_QUOTES, 'UTF-8'),
 				'attempts' => 1,
 				'queries' => $queries,
 				'queries_time' => $query_time,

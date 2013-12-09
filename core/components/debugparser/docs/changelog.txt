@@ -1,5 +1,9 @@
 Changelog for debugParser.
 
+1.0.0 pl
+==============
+- Fixed some troubles with charset.
+
 1.0.0 rc1
 ==============
 - Fixed total values.
