@@ -33,10 +33,11 @@ unset($root);
 require_once MODX_CORE_PATH . 'model/modx/modx.class.php';
 require_once $sources['build'] . '/includes/functions.php';
 
+if (!XPDO_CLI_MODE) {echo '<pre>';}
 $modx= new modX();
 $modx->initialize('mgr');
 $modx->setLogLevel(modX::LOG_LEVEL_INFO);
-$modx->setLogTarget(XPDO_CLI_MODE ? 'ECHO' : 'HTML');
+$modx->setLogTarget('ECHO');
 $modx->getService('error','error.modError');
 $modx->loadClass('transport.modPackageBuilder','',false, true);
 
@@ -44,7 +45,6 @@ $builder = new modPackageBuilder($modx);
 $builder->createPackage(PKG_NAME_LOWER,PKG_VERSION,PKG_RELEASE);
 $builder->registerNamespace(PKG_NAME_LOWER,false,true,PKG_NAMESPACE_PATH);
 
-if (!XPDO_CLI_MODE) {echo '<pre>';}
 $modx->log(modX::LOG_LEVEL_INFO,'Created Transport Package and Namespace.');
 
 /* load system settings */
@@ -278,8 +278,8 @@ $tend= $mtime;
 $totalTime= ($tend - $tstart);
 $totalTime= sprintf("%2.4f s", $totalTime);
 
+$signature = $builder->getSignature();
 if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
-	$signature = $builder->getSignature();
 	$sig = explode('-',$signature);
 	$versionSignature = explode('.',$sig[1]);
 
@@ -315,6 +315,9 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
 		$modx->runProcessor('system/clearcache');
 	}
 }
+if (!empty($_GET['download'])) {
+	echo '<script>document.location.href = "/core/packages/' . $signature.'.transport.zip' . '";</script>';
+}
 
 $modx->log(modX::LOG_LEVEL_INFO,"\n<br />Execution time: {$totalTime}\n");
-if (!XPDO_CLI_MODE) {echo '/<pre>';}
+if (!XPDO_CLI_MODE) {echo '</pre>';}
