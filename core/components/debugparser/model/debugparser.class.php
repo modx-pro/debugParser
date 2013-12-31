@@ -60,8 +60,15 @@ class debugParser extends modParser {
 	 * Generates table with report
 	 */
 	public function generateReport() {
-		$time = array();
+		// Total values
+		$data = array(
+			'rows' => '',
+			'total_queries' => $this->modx->executedQueries,
+			'total_queries_time' => number_format(round($this->modx->queryTime, 7), 7),
+			'total_parse_time' => number_format(round(microtime(true) - $this->modx->startTime, 7), 7),
+		);
 
+		$time = array();
 		// Sort tags by time
 		foreach ($this->tags as $hash => $tag) {
 			$time[$hash] = $tag['parse_time'];
@@ -72,13 +79,6 @@ class debugParser extends modParser {
 		$tplOuter = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.outer.tpl');
 		$tpl = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.row.tpl');
 
-		// Generate report
-		$data = array(
-			'rows' => '',
-			'total_queries' => $this->modx->executedQueries,
-			'total_queries_time' => number_format(round($this->modx->queryTime, 7), 7),
-			'total_parse_time' => number_format(round(microtime(true) - $this->modx->startTime, 7), 7),
-		);
 
 		$idx = 1;
 		foreach ($time as $k => $v) {
@@ -90,10 +90,6 @@ class debugParser extends modParser {
 
 			$pls = $this->makePlaceholders($row);
 			$data['rows'] .= str_replace($pls['pl'], $pls['vl'], $tpl);
-
-			$data['total_queries'] += $row['queries'];
-			$data['total_queries_time'] += $row['queries_time'];
-			$data['total_parse_time'] += $row['parse_time'];
 
 			if (!empty($_REQUEST['top']) && $idx > (int) $_REQUEST['top']) {
 				break;
