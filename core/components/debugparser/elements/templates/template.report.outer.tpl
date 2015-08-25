@@ -52,11 +52,11 @@
 	<tr><th>Total parse time</th><th>[[+total_parse_time]] s</th></tr>
 	<tr><th>Total queries</th><td>[[+total_queries]]</td></tr>
 	<tr><th>Total queries time</th><td>[[+total_queries_time]] s</td></tr>
+</table>
+<table class="info">
 	<tr><th>Memory peak usage</th><td>[[+memory_peak]] Mb</td></tr>
-	<tr><th>&nbsp;</th><td>&nbsp;</td></tr>
 	<tr><th>MODX version</th><td>[[+modx_version]]</td></tr>
 	<tr><th>PHP version</th><td>[[+php_version]]</td></tr>
 	<tr><th>Database version</th><td>[[+database_type]] [[+database_version]]</td></tr>
-
 	<tr><th>From cache</th><td>[[+from_cache]]</td></tr>
 </table>

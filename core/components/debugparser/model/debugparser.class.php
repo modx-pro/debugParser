@@ -6,15 +6,12 @@ class debugParser extends modParser {
 	/** @var modParser $parser */
 	protected $parser = null;
 
-	/** {inheritDoc} */
-	public function __construct(xPDO &$modx) {
+
+	function __construct(xPDO &$modx) {
+		/** @var modX $modx */
 		parent::__construct($modx);
-
-		$parser = $this->modx->getOption('parser_class', null, 'modParser');
-		$parser_class_path = $this->modx->getOption('parser_class_path', null, null);
-
-		if ($parser != 'modParser' && $this->modx->loadClass($parser, $parser_class_path)) {
-			$this->parser = new $parser($modx);
+		if (property_exists($modx, 'parser')) {
+			$this->parser = $modx->parser;
 		}
 	}
 
