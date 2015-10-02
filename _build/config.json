@@ -1,0 +1,28 @@
+{
+  "name": "DebugParser",
+  "lowCaseName": "debugparser",
+  "description": "Component for display verbose information about processing tags in modParser of MODX Revolution",
+  "author": "Vasily Naumkin",
+  "version": "1.1.0-pl",
+  "package": {
+    "elements": {
+      "plugins": [
+        {
+          "name": "DebugParser",
+          "file": "plugin.debugparser.php",
+          "events": [
+            "OnHandleRequest",
+            "OnWebPagePrerender",
+            "OnWebPageInit",
+            "OnLoadWebPageCache"
+          ]
+        }
+      ]
+    }
+  },
+  "build": {
+    "readme": "docs/readme.txt",
+    "license": "docs/license.txt",
+    "changelog": "docs/changelog.txt"
+  }
+}

@@ -6,10 +6,11 @@ if (empty($_REQUEST['debug']) || !$modx->user->hasSessionContext('mgr') || $modx
 switch ($modx->event->name) {
 
 	case 'OnHandleRequest':
-		if ($modx->parser instanceof pdoParser && $modx->loadClass('debugPdoParser', MODX_CORE_PATH . 'components/debugparser/model/', false, true)) {
+		$corePath = $modx->getOption('debugparser.core_path', null, $modx->getOption('core_path') . 'components/debugparser/');
+		if ($modx->parser instanceof pdoParser && $modx->loadClass('debugPdoParser', $corePath . 'model/', false, true)) {
 			$modx->parser = new debugPdoParser($modx);
 		}
-		elseif ($modx->loadClass('debugParser', MODX_CORE_PATH . 'components/debugparser/model/', false, true)) {
+		elseif ($modx->loadClass('debugParser', $corePath . 'model/', false, true)) {
 			$modx->parser = new debugParser($modx);
 		}
 		break;

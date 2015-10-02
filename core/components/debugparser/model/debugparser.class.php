@@ -72,9 +72,11 @@ class debugParser extends modParser {
 		}
 		arsort($time);
 
+		$corePath = $this->modx->getOption('debugparser.core_path', null, $this->modx->getOption('core_path') . 'components/debugparser/');
+
 		// Get templates
-		$tplOuter = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.outer.tpl');
-		$tpl = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.row.tpl');
+		$tplOuter = file_get_contents($corePath . 'elements/templates/template.report.outer.tpl');
+		$tpl = file_get_contents($corePath . 'elements/templates/template.report.row.tpl');
 
 
 		$idx = 1;
@@ -110,7 +112,7 @@ class debugParser extends modParser {
 			$this->modx->resource->_output = str_replace('</body>', $output.'</body>', $this->modx->resource->_output);
 		}
 		else {
-			$tplPage = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.page.tpl');
+			$tplPage = file_get_contents($corePath . 'elements/templates/template.report.page.tpl');
 			$data = array(
 				'site_name' => $this->modx->getOption('site_name'),
 				'modx_charset' => $this->modx->getOption('modx_charset'),
