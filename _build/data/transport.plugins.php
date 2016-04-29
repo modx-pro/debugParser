@@ -11,6 +11,7 @@ $tmp = array(
 			'OnWebPagePrerender' => array(),
 			'OnWebPageInit' => array(),
 			'OnLoadWebPageCache' => array(),
+			'OnElementNotFound' => array(),
 		)
 	)
 );

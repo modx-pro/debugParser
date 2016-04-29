@@ -82,4 +82,8 @@ class debugPdoParser extends pdoParser {
 		$this->parser->clearCache($context);
 	}
 
+	public function addNFElement($class, $name) {
+		$this->parser->addNFElement($class, $name);
+	}
+
 }

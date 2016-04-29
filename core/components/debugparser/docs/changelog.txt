@@ -1,5 +1,8 @@
 Changelog for debugParser.
 
+==============
+- Added logging for not found element at OnElementNotFound event
+
 1.1.0 pl
 ==============
 - Added support of pdoParser with Fenom syntax.

@@ -49,6 +49,17 @@
 </table>
 
 <table class="info">
+    <thead>
+    <tr>
+        <th>Class of not found elements</th>
+        <th>Element names</th>
+    </tr>
+    </thead>
+
+    [[+nfRows]]
+</table>
+
+<table class="info">
 	<tr><th>Total parse time</th><th>[[+total_parse_time]] s</th></tr>
 	<tr><th>Total queries</th><td>[[+total_queries]]</td></tr>
 	<tr><th>Total queries time</th><td>[[+total_queries_time]] s</td></tr>

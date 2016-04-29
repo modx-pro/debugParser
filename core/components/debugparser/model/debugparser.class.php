@@ -2,6 +2,7 @@
 
 class debugParser extends modParser {
 	public $tags = array();
+	public $nfElements = array();
 	public $from_cache = false;
 	/** @var modParser $parser */
 	protected $parser = null;
@@ -75,6 +76,7 @@ class debugParser extends modParser {
 		// Get templates
 		$tplOuter = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.outer.tpl');
 		$tpl = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.row.tpl');
+		$tplNF = file_get_contents(MODX_CORE_PATH . 'components/debugparser/elements/templates/template.report.nfrow.tpl');
 
 
 		$idx = 1;
@@ -92,6 +94,14 @@ class debugParser extends modParser {
 				break;
 			}
 		}
+
+        $data['nf'] = '';
+        if (!empty($this->nfElements)) {
+            foreach ($this->nfElements as $class => $elements) {
+                $pls = $this->makePlaceholders(array('class' => $class, 'elements' => implode(', ', $elements)));
+                $data['nfRows'] .= str_replace($pls['pl'], $pls['vl'], $tplNF);
+            }
+        }
 
 		/** @var modProcessorResponse $response */
 		$response = $this->modx->runProcessor('system/info');
@@ -168,6 +178,15 @@ class debugParser extends modParser {
 			$key = $resource->getCacheKey();
 			$cache->delete($key, array('deleteTop' => true));
 			$cache->delete($key);
+		}
+	}
+
+	public function addNFElement($class, $name) {
+		if (!isset($this->nfElements[$class])) {
+			$this->nfElements[$class] = array();
+		}
+		if (!in_array($name, $this->nfElements[$class])) {
+			$this->nfElements[$class][] = $name;
 		}
 	}
 

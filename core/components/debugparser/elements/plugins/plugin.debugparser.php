@@ -31,4 +31,9 @@ switch ($modx->event->name) {
 			$modx->parser->generateReport();
 		}
 		break;
+
+	case 'OnElementNotFound':
+		if (method_exists($modx->parser, 'addNFElement')) {
+			$modx->parser->addNFElement($class, $name);
+		}
 }
